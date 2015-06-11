@@ -1,0 +1,8 @@
+{
+    "name": "optimus/laravel-batch",
+    "autoload": {
+        "psr-4": {
+            "Optimus\\LaravelBatch\\": "src/"
+        }
+    }
+}
