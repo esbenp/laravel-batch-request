@@ -3,19 +3,6 @@
 return [
 
     /**
-     * Set the endpoint route for using batch request for external 
-     * client use
-     */
-    "use_endpoint" => true,
-
-    "endpoint" => "/batch",
-
-    /**
-     * The HTTP method of the endpoint
-     */
-    "endpoint_method" => "POST",
-
-    /**
      * Should urls given to the endpoint be prefixed?
      * E.g. /url would become /api/url if url_prefix => /api
      */
