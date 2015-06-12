@@ -57,6 +57,8 @@ return [
      * the database will rollback if any given response was errorneous 
      * (non-2xx status) 
      */
-    "rollback_db_transactions_on_error" => true
+    "rollback_db_transactions_on_error" => true,
+
+    "router" => "router"
 
 ];

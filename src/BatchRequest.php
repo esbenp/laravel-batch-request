@@ -6,9 +6,11 @@ use DB;
 use Exception;
 use Request;
 use Optimus\LaravelBatch\Action;
+use Optimus\LaravelBatch\Database\TransactionInterface;
 use Optimus\LaravelBatch\ResponseFormatter\ResponseFormatterInterface;
 use Optimus\LaravelBatch\ResultFormatter\ResultFormatterInterface;
-use Illuminate\Routing\Router;
+use Optimus\LaravelBatch\Router\RouterInterface;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class BatchRequest {
 
@@ -22,13 +24,25 @@ class BatchRequest {
 
     private $resultFormatter;
 
-    /**
-     * @param Router $router
-     */
-    public function __construct(Router $router)
+    private $config;
+
+    private $db;
+
+    public function __construct(
+        RouterInterface $router,
+        SymfonyRequest $currentRequest,
+        $config,
+        ResultFormatterInterface $resultFormatter,
+        ResponseFormatterInterface $responseFormatter,
+        TransactionInterface $db)
     {
-        $this->currentRequest = Request::instance();
+        $this->currentRequest = $currentRequest;
         $this->router = $router;
+        $this->config = $config;
+        $this->db = $db;
+
+        $this->setResultFormatter($resultFormatter);
+        $this->setResponseFormatter($responseFormatter);
     }
 
     /**
@@ -86,7 +100,7 @@ class BatchRequest {
                 // Create a batch response from the action and result
                 $response = $this->createResponse($action, $result);
             } catch(\Symfony\Component\HttpKernel\Exception\HttpException $e) {
-                if (!config('batchrequest.catch_http_exceptions')) {
+                if (!$this->config['catch_http_exceptions']) {
                     throw $e;
                 }
 
@@ -151,7 +165,7 @@ class BatchRequest {
         // The result collection was errorneous. Rollback the database
         // and return all the error messages
         if ($errorneous === true) {
-            if (config('batchrequest.rollback_db_transactions_on_error')) {
+            if ($this->config['rollback_db_transactions_on_error']) {
                 $this->rollbackDatabaseTransaction();
             }
 
@@ -245,7 +259,7 @@ class BatchRequest {
      */
     private function beginDatabaseTransaction()
     {
-        DB::beginTransaction();
+        $this->db->beginTransaction();
     }
 
     /**
@@ -253,7 +267,7 @@ class BatchRequest {
      */
     private function rollbackDatabaseTransaction()
     {
-        DB::rollback();
+        $this->db->rollback();
     }
 
     /**
@@ -261,7 +275,7 @@ class BatchRequest {
      */
     private function commitDatabaseTransaction()
     {
-        DB::commit();
+        $this->db->commit();
     }
 
     /**
@@ -284,7 +298,7 @@ class BatchRequest {
      */
     private function createRequest(Action $action)
     {
-        return Request::create(sprintf("%s%s", config('batchrequest.url_prefix'), $action->url), $action->method, $action->data);
+        return Request::create(sprintf("%s%s", $this->config['url_prefix'], $action->url), $action->method, $action->data);
     }
 
     private function generateResponse($status, array $successes, array $errors)

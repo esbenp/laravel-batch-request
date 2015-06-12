@@ -3,17 +3,22 @@
 namespace Optimus\LaravelBatch;
 
 use Illuminate\Support\ServiceProvider as BaseProvider;
+use Optimus\LaravelBatch\BatchRequest;
+use Optimus\LaravelBatch\Database\Adapter\Laravel as LaravelDatabase;
+use Optimus\LaravelBatch\Router\Adapter\Laravel as LaravelRouter;
 
 class ServiceProvider extends BaseProvider {
 
     public function register()
     {
         $this->loadConfig();
-        $this->registerRoute();
     }
 
     public function boot()
     {
+        // Registering route in the boot method to let 
+        // all router providers be done registering
+        $this->registerRoute();
         $this->loadLangFile();
     }
 
@@ -32,20 +37,26 @@ class ServiceProvider extends BaseProvider {
     private function registerRoute()
     {
         if (!$this->app->routesAreCached() && config('batchrequest.use_endpoint')) {
-            $router = app('router');
-            $endpointMethod = config('batchrequest.endpoint_method');
-            $endpoint = config('batchrequest.endpoint');
+            $config = config('batchrequest');
 
-            call_user_func_array(array($router, $endpointMethod), array($endpoint, function(){
-                $batchRequest = app('Optimus\LaravelBatch\BatchRequest');
+            $router = app($config['router']);
+            $endpointMethod = $config['endpoint_method'];
+            $endpoint = $config['endpoint'];
 
-                $resultFormatterClass = config('batchrequest.result_formatter');
-                $batchRequest->setResultFormatter(new $resultFormatterClass);
+            call_user_func_array(array($router, $endpointMethod), array($endpoint, function() use($router, $config){
+                $resultFormatterClass = $config['result_formatter'];
+                $responseFormatterClass = $config['response_formatter'];
 
-                $responseFormatterClass = config('batchrequest.response_formatter');
-                $batchRequest->setResponseFormatter(new $responseFormatterClass);
+                $batchRequest = new BatchRequest(
+                        new LaravelRouter($router),
+                        app('request')->instance(),
+                        $config,
+                        new $resultFormatterClass,
+                        new $responseFormatterClass,
+                        new LaravelDatabase(app('db'))
+                );
 
-                $actionsKey = config('batchrequest.actions_key');
+                $actionsKey = $config['actions_key'];
                 $actions = \Request::get($actionsKey, []);
 
                 $batchRequest->request($actions);
