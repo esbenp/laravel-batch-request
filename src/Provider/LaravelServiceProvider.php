@@ -1,13 +1,13 @@
 <?php
 
-namespace Optimus\LaravelBatch;
+namespace Optimus\LaravelBatch\Provider;
 
 use Illuminate\Support\ServiceProvider as BaseProvider;
 use Optimus\LaravelBatch\BatchRequest;
 use Optimus\LaravelBatch\Database\Adapter\Laravel as LaravelDatabase;
 use Optimus\LaravelBatch\Router\Adapter\Laravel as LaravelRouter;
 
-class ServiceProvider extends BaseProvider {
+class LaravelServiceProvider extends BaseProvider {
 
     public function register()
     {
@@ -25,21 +25,21 @@ class ServiceProvider extends BaseProvider {
     private function loadConfig()
     {
         if (config('batchrequest') === null) {
-            app('config')->set('batchrequest', require __DIR__.'/config/batchrequest.php');
+            app('config')->set('batchrequest', require __DIR__.'/../config/batchrequest.php');
         }
     }
 
     private function loadLangFile()
     {
-        $this->loadTranslationsFrom(__DIR__.'/lang', 'batchrequest');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'batchrequest');
     }
 
     private function registerRoute()
     {
-        if (!$this->app->routesAreCached() && config('batchrequest.use_endpoint')) {
-            $config = config('batchrequest');
+        $config = config('batchrequest');
 
-            $router = app($config['router']);
+        if (!$this->app->routesAreCached() && $config['use_endpoint']) {
+            $router = app('router');
             $endpointMethod = $config['endpoint_method'];
             $endpoint = $config['endpoint'];
 
