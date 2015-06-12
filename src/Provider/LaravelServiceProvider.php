@@ -12,6 +12,7 @@ class LaravelServiceProvider extends BaseProvider {
     public function register()
     {
         $this->loadConfig();
+        $this->registerAssets();
     }
 
     public function boot()
@@ -20,6 +21,13 @@ class LaravelServiceProvider extends BaseProvider {
         // all router providers be done registering
         $this->registerRoute();
         $this->loadLangFile();
+    }
+
+    private function registerAssets()
+    {
+        $this->publishes([
+            __DIR__.'/../config/batchrequest.php' => config_path('batchrequest.php')
+        ]);
     }
 
     private function loadConfig()
