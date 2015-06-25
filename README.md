@@ -5,5 +5,5 @@
 ## Installation
 
 ```bash
-composer require optimus/batch-request 0.1.*
+composer require optimus/batch-request 0.3.*
 ```
