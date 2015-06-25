@@ -25,12 +25,12 @@ return [
     /**
      * The chosen class to format the response of the batch request
      */
-    "response_formatter" => Optimus\LaravelBatch\ResponseFormatter\OptimusResponseFormatter::class,
+    "response_formatter" => Optimus\BatchRequest\ResponseFormatter\OptimusResponseFormatter::class,
 
     /**
      * The chosen class to format each individual response in the batch request
      */
-    "result_formatter" => Optimus\LaravelBatch\ResultFormatter\OptimusResultFormatter::class,
+    "result_formatter" => Optimus\BatchRequest\ResultFormatter\OptimusResultFormatter::class,
 
     "wrap_in_database_transaction" => true,
 

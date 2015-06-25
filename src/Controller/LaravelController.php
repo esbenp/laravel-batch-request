@@ -1,19 +1,24 @@
 <?php
 
-namespace Optimus\LaravelBatch\Controller;
+namespace Optimus\BatchRequest\Controller;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Routing\Controller;
 
 class LaravelController extends Controller {
 
+    private $app;
+
+    public function __construct(Application $app) {
+        $this->app = $app;
+    }
+
     public function request()
     {
-        $app = app();
+        $actionsKey = $this->app['config']->get('batchrequest.actions_key');
+        $actions = $this->app['request']->get($actionsKey, []);
 
-        $actionsKey = $app['config']->get('batchrequest.actions_key');
-        $actions = $app['request']->get($actionsKey, []);
-
-        $response = $app['batchrequest']->request($actions);
+        $response = $this->app['batchrequest']->request($actions);
 
         return response()->json($response);
     }

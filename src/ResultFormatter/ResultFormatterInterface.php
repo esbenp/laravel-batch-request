@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimus\LaravelBatch\ResultFormatter;
+namespace Optimus\BatchRequest\ResultFormatter;
 
 use Symfony\Component\HttpFoundation\Response;
 

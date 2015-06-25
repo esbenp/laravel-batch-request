@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimus\LaravelBatch\Provider;
+namespace Optimus\BatchRequest\Provider;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Application;
@@ -8,10 +8,10 @@ use Illuminate\Http\Request as LaravelRequest;
 use Illuminate\Routing\Router as LaravelRouter;
 use Illuminate\Support\ServiceProvider as BaseProvider;
 use Optimus\ApiConsumer\Router as OptimusApiConsumerRouter;
-use Optimus\LaravelBatch\BatchRequest;
-use Optimus\LaravelBatch\Database\Adapter\Laravel as LaravelDatabase;
-use Optimus\LaravelBatch\Database\Adapter\Null as NullDatabase;
-use Optimus\LaravelBatch\Router\Adapter\OptimusApiConsumer as OptimusApiConsumerRouterAdapter;
+use Optimus\BatchRequest\BatchRequest;
+use Optimus\BatchRequest\Database\Adapter\Laravel as LaravelDatabase;
+use Optimus\BatchRequest\Database\Adapter\Null as NullDatabase;
+use Optimus\BatchRequest\Router\Adapter\OptimusApiConsumer as OptimusApiConsumerRouterAdapter;
 
 class LaravelServiceProvider extends BaseProvider {
 
@@ -76,8 +76,8 @@ class LaravelServiceProvider extends BaseProvider {
 
     private function loadConfig()
     {
-        if (config('batchrequest') === null) {
-            app('config')->set('batchrequest', require __DIR__.'/../config/batchrequest.php');
+        if ($this->app['config']->get('batchrequest') === null) {
+            $this->app['config']->set('batchrequest', require __DIR__.'/../config/batchrequest.php');
         }
     }
 

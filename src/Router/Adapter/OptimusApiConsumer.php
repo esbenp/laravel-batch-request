@@ -1,9 +1,9 @@
 <?php
 
-namespace Optimus\LaravelBatch\Router\Adapter;
+namespace Optimus\BatchRequest\Router\Adapter;
 
 use Optimus\ApiConsumer\Router;
-use Optimus\LaravelBatch\Router\RouterInterface;
+use Optimus\BatchRequest\Router\RouterInterface;
 
 class OptimusApiConsumer implements RouterInterface {
 
@@ -52,7 +52,7 @@ class OptimusApiConsumer implements RouterInterface {
     private function createActionUrl($action)
     {
         return is_string($this->config['url_prefix']) ? 
-                    sprintf('/%s%s', $this->config['url_prefix'], $action) : $action;
+                    sprintf('%s%s', $this->config['url_prefix'], $action) : $action;
     }
 
 }

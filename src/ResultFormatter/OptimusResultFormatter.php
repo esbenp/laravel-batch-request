@@ -1,8 +1,9 @@
 <?php
 
-namespace Optimus\LaravelBatch\ResultFormatter;
+namespace Optimus\BatchRequest\ResultFormatter;
 
 use Exception;
+use Illuminate\Http\Response as LaravelResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -25,7 +26,9 @@ class OptimusResultFormatter implements ResultFormatterInterface {
     private function formatData(Response $response)
     {
         if (!$response->isSuccessful()) {
-            $exception = $response->exception;
+            $exception = $response instanceof LaravelResponse ? 
+                            $response->exception : 
+                            /* TODO: */ null;
 
             return $this->formatException($exception);
         }
@@ -42,8 +45,7 @@ class OptimusResultFormatter implements ResultFormatterInterface {
                 trans('batchrequest::responses.exception_message') => $exception->getMessage(),
                 trans('batchrequest::responses.exception_exception') => (string) $exception,
                 trans('batchrequest::responses.exception_line') => $exception->getLine(),
-                trans('batchrequest::responses.exception_file') => $exception->getFile(),
-                trans('batchrequest::responses.exception_trace') => $exception->getTrace()
+                trans('batchrequest::responses.exception_file') => $exception->getFile()
             ];
     }
 

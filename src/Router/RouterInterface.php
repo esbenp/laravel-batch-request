@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimus\LaravelBatch\Router;
+namespace Optimus\BatchRequest\Router;
 
 interface RouterInterface {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Optimus\LaravelBatch;
+namespace Optimus\BatchRequest;
 
-use Optimus\LaravelBatch\Database\TransactionInterface;
-use Optimus\LaravelBatch\ResponseFormatter\ResponseFormatterInterface;
-use Optimus\LaravelBatch\ResultFormatter\ResultFormatterInterface;
-use Optimus\LaravelBatch\Router\RouterInterface;
+use Optimus\BatchRequest\Database\TransactionInterface;
+use Optimus\BatchRequest\ResponseFormatter\ResponseFormatterInterface;
+use Optimus\BatchRequest\ResultFormatter\ResultFormatterInterface;
+use Optimus\BatchRequest\Router\RouterInterface;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class BatchRequest {

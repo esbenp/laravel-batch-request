@@ -1,8 +1,8 @@
 <?php
 
-namespace Optimus\LaravelBatch\Database\Adapter;
+namespace Optimus\BatchRequest\Database\Adapter;
 
-use Optimus\LaravelBatch\Database\TransactionInterface;
+use Optimus\BatchRequest\Database\TransactionInterface;
 use Illuminate\Database\DatabaseManager;
 
 class Laravel implements TransactionInterface {

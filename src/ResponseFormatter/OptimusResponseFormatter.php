@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimus\LaravelBatch\ResponseFormatter;
+namespace Optimus\BatchRequest\ResponseFormatter;
 
 class OptimusResponseFormatter implements ResponseFormatterInterface {
 
@@ -9,7 +9,7 @@ class OptimusResponseFormatter implements ResponseFormatterInterface {
         return [
             'status' => trans('batchrequest::responses.' . $status . '_status'),
             'message' => trans('batchrequest::responses.' . $status . '_message'),
-            'responses' => count($errors) > 0 ? $errors : $successes
+            'responses' => array_values(count($errors) > 0 ? $errors : $successes)
         ];
     }
 

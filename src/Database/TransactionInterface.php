@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimus\LaravelBatch\Database;
+namespace Optimus\BatchRequest\Database;
 
 interface TransactionInterface {
 

@@ -1,12 +1,16 @@
 {
-    "name": "optimus/laravel-batch",
+    "name": "optimus/batch-request",
     "autoload": {
         "psr-4": {
-            "Optimus\\LaravelBatch\\": "src/"
+            "Optimus\\BatchRequest\\": "src/"
         }
     },
     "require": {
         "optimus/api-consumer": "0.1.*",
         "laravel/framework": "~5.1"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.*",
+        "orchestra/testbench": "~3.1"
     }
 }

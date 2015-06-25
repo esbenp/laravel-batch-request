@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimus\LaravelBatch\ResponseFormatter;
+namespace Optimus\BatchRequest\ResponseFormatter;
 
 class PlainResponseFormatter implements ResponseFormatterInterface {
 
