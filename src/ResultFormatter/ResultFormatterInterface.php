@@ -2,7 +2,7 @@
 
 namespace Optimus\LaravelBatch\ResultFormatter;
 
-use Optimus\LaravelBatch\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 interface ResultFormatterInterface {
 

@@ -4,6 +4,6 @@ namespace Optimus\LaravelBatch\Router;
 
 interface RouterInterface {
 
-    public function dispatch($request);
+    public function batch(array $requests);
 
 }

@@ -2,12 +2,15 @@
 
 namespace Optimus\LaravelBatch\ResultFormatter;
 
-use Optimus\LaravelBatch\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class PlainResultFormatter implements ResultFormatterInterface {
 
     public function formatResult(Response $response) {
-        return $response->data;
+        $content = $response->getContent();
+
+        return $response instanceof JsonResponse ? json_decode($content) : $content;
     }
 
 }

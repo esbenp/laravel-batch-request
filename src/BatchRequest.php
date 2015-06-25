@@ -2,23 +2,15 @@
 
 namespace Optimus\LaravelBatch;
 
-use DB;
-use Exception;
-use Request;
-use Optimus\LaravelBatch\Action;
 use Optimus\LaravelBatch\Database\TransactionInterface;
 use Optimus\LaravelBatch\ResponseFormatter\ResponseFormatterInterface;
 use Optimus\LaravelBatch\ResultFormatter\ResultFormatterInterface;
 use Optimus\LaravelBatch\Router\RouterInterface;
-use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class BatchRequest {
 
     private $router;
-
-    private $result;
-
-    private $currentRequest;
 
     private $responseFormatter;
 
@@ -30,17 +22,15 @@ class BatchRequest {
 
     public function __construct(
         RouterInterface $router,
-        SymfonyRequest $currentRequest,
-        $config,
+        array $config,
         ResultFormatterInterface $resultFormatter,
         ResponseFormatterInterface $responseFormatter,
-        TransactionInterface $db)
+        TransactionInterface $databaseManager)
     {
-        $this->currentRequest = $currentRequest;
-        $this->router = $router;
         $this->config = $config;
-        $this->db = $db;
-
+ 
+        $this->setRouter($router);
+        $this->setDatabaseManager($databaseManager);
         $this->setResultFormatter($resultFormatter);
         $this->setResponseFormatter($responseFormatter);
     }
@@ -63,73 +53,13 @@ class BatchRequest {
      */
     public function request(array $actions) 
     {
-        $results = array();
-
-        // When dispatching the action we need to replace the 
-        // batch's input with the data given by the request. 
-        // We therefore store the batch request input data, so 
-        // we are able to reset the input after all actions
-        // have been run
-        $originalInput = $this->currentRequest->input();
-
         // We begin a database transaction, so the we can rollback
         // if there are errors in one or more of the actions.
         $this->beginDatabaseTransaction();
 
-        foreach($actions as $action) {
-            // Create an action object from the data
-            $action = Action::createFromArray($action);
+        $responses = $this->router->batch($actions);
 
-            // Create a Illuminate request object from the action
-            $request = $this->createRequest($action);
-
-            // Add custom headers to the request
-            // We also save all the old headers in the additions array
-            // Headers we have overridden will be given as {header-type: value}
-            // Non-existent headers, which we want to remove after the action has run
-            // are given as {header-type: null}
-            $additions = $this->addHeadersToRequest($this->currentRequest, $action->headers);
-
-            // Replace the input of the batch request with the action input
-            $this->replaceInput($request->input());
-
-            try {
-                // Run the action through the router
-                $result = $this->router->dispatch($request);
-
-                // Create a batch response from the action and result
-                $response = $this->createResponse($action, $result);
-            } catch(\Symfony\Component\HttpKernel\Exception\HttpException $e) {
-                if (!$this->config['catch_http_exceptions']) {
-                    throw $e;
-                }
-
-                $symfonyResponse = \Symfony\Component\HttpFoundation\Response::create(
-                    $e->getMessage(),
-                    $e->getStatusCode(),
-                    $e->getHeaders()
-                );
-
-                $response = $this->createResponse($action, $symfonyResponse);
-            }
-
-            // Remove headers added to the batch request, and readd removed ones
-            $this->addHeadersToRequest($this->currentRequest, $additions);
-
-            // Save the response in the combined result array
-            // If a key is given, save the response with given key
-            if ($action->key !== null) {
-                $results[$action->key] = $response;
-            } else {
-                $results[] = $response;
-            }
-        }
-
-        // Reset the batch request's input to the original input
-        $this->replaceInput($originalInput);
-
-        // Save the result in the instance
-        $this->result = $results;
+        return $this->prepareResults($responses);
     }
 
     /**
@@ -144,7 +74,7 @@ class BatchRequest {
      * 
      * @return array|\Illuminate\Http\Response 
      */
-    public function response()
+    public function prepareResults($results)
     {
         // Array of all error responses
         $errors = [];
@@ -153,12 +83,12 @@ class BatchRequest {
 
         // Was there an error in the result collection?
         $errorneous = false;
-        foreach($this->result as $key => $result) {
-            if ($result->statusCode < 200 || $result->statusCode >= 300) {
+        foreach($results as $key => $response) {
+            if (!$response->isSuccessful()) {
                 $errorneous = true;
-                $errors[$key] = $this->generateResult($result);
+                $errors[$key] = $this->generateResult($response);
             } else {
-                $successes[$key] = $this->generateResult($result);
+                $successes[$key] = $this->generateResult($response);
             }
         }
 
@@ -187,6 +117,16 @@ class BatchRequest {
         );
     }
 
+    public function setRouter(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
+
+    public function setDatabaseManager(TransactionInterface $databaseManager)
+    {
+        $this->db = $databaseManager;
+    }
+
     public function setResponseFormatter(ResponseFormatterInterface $responseFormatter)
     {
         $this->responseFormatter = $responseFormatter;
@@ -195,63 +135,6 @@ class BatchRequest {
     public function setResultFormatter(ResultFormatterInterface $resultFormatter)
     {
         $this->resultFormatter = $resultFormatter;
-    }
-
-    /**
-     * Add/override headers of request
-     * Returns an array of old/added headers used to reset batch request 
-     * headers after an action has run
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @param array                    $headers
-     */
-    private function addHeadersToRequest(\Illuminate\Http\Request $request, array $headers)
-    {
-        $additions = [];
-        // Get the headers of the request (the batch request)
-        $headerBag = $request->headers;
-
-        foreach($headers as $headerType => $value) {
-            // If the value is null it means we are removing action headers previously 
-            // added to the batch request
-            if ($value === null) {
-                $headerBag->remove($headerType);
-                continue;
-            }
-
-            // Save old value so it can be readded
-            if ($headerBag->has($headerType)) {
-                $additions[$headerType] = $headerBag->get($headerType);
-
-            // Save as null to signal this should 
-            // be removed again
-            } else {
-                $additions[$headerType] = null;
-            }
-
-            $request->headers->set($headerType, $value);
-        }
-
-        return $additions;
-    }
-
-    /**
-     * Create a batch response object with meta data 
-     * and response data. A simple DTO.
-     * 
-     * @param  Action $action
-     * @param  \Symfony\Component\HttpFoundation\Response $result
-     * @return Response        
-     */
-    private function createResponse(Action $action, \Symfony\Component\HttpFoundation\Response $result)
-    {
-        $response = new Response;
-        $response->responseObject = $result;
-        $response->statusCode = $result->getStatusCode();
-        $response->action = $action;
-        $response->data = json_decode($result->getContent());
-
-        return $response;
     }
 
     /**
@@ -278,35 +161,12 @@ class BatchRequest {
         $this->db->commit();
     }
 
-    /**
-     * Replace the input of the batch request
-     * 
-     * @param  $input
-     * @return void       
-     */
-    private function replaceInput($input)
-    {
-        $this->currentRequest->replace($input);
-    }
-
-    /**
-     * Create an illuminate request object representing
-     * the action being executed
-     * 
-     * @param  Action $action [description]
-     * @return [type]         [description]
-     */
-    private function createRequest(Action $action)
-    {
-        return Request::create(sprintf("%s%s", $this->config['url_prefix'], $action->url), $action->method, $action->data);
-    }
-
     private function generateResponse($status, array $successes, array $errors)
     {
         return $this->responseFormatter->formatResponse($status, $successes, $errors);
     }
 
-    private function generateResult(Response $result)
+    private function generateResult(SymfonyResponse $result)
     {
         return $this->resultFormatter->formatResult($result);
     }

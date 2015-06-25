@@ -4,5 +4,9 @@
         "psr-4": {
             "Optimus\\LaravelBatch\\": "src/"
         }
+    },
+    "require": {
+        "optimus/api-consumer": "0.1.*",
+        "laravel/framework": "~5.1"
     }
 }
