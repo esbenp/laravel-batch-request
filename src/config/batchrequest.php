@@ -9,14 +9,14 @@ return [
     "url_prefix" => false,
 
     /**
-     * The actions array sent from the client should be prefixed with a 
+     * The actions array sent from the client should be prefixed with a
      * key. That key is given here.
-     * e.g. 
+     * e.g.
      * {
      *     "actions": [
      *         {Action1},
      *         {Action2},
-     *         etc.. 
+     *         etc..
      *     ]
      * }
      */
@@ -35,10 +35,15 @@ return [
     "wrap_in_database_transaction" => true,
 
     /**
-     * Batch requests are wrapped in a database transaction. If set to true 
-     * the database will rollback if any given response was errorneous 
-     * (non-2xx status) 
+     * Batch requests are wrapped in a database transaction. If set to true
+     * the database will rollback if any given response was errorneous
+     * (non-2xx status)
      */
-    "rollback_db_transactions_on_error" => true
+    "rollback_db_transactions_on_error" => true,
+
+    /**
+    * Disable middleware when doing the batch requests
+    */
+    "disable_middleware" => false
 
 ];

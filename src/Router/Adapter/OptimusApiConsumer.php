@@ -21,6 +21,10 @@ class OptimusApiConsumer implements RouterInterface {
     {
         $order = $this->getKeyOrder($requests);
 
+        if ($this->config["disable_middleware"]) {
+            $this->router->disableMiddleware();
+        }
+
         $responses = $this->router->batchRequest($this->formatRequests($requests));
 
         return array_combine($order, $responses);
