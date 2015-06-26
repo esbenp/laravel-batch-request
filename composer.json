@@ -6,7 +6,7 @@
         }
     },
     "require": {
-        "optimus/api-consumer": "0.1.*",
+        "optimus/api-consumer": "0.2.*",
         "laravel/framework": "~5.1"
     },
     "require-dev": {
