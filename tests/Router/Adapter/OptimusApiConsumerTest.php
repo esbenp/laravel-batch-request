@@ -66,6 +66,22 @@ class OptimusApiConsumerTest extends Orchestra\Testbench\TestCase {
         $this->assertEquals('key2', $responseKeys[1]);
     }
 
+    public function testThatBatchRequestWorksWithoutDefiningMethodAndData()
+    {
+      $this->routerMock->shouldReceive('batchRequest')->andReturn([
+          ['data' => [], 'status' => 200]
+        ]);
+
+      $router = new OptimusApiConsumer($this->routerMock, $this->configMock);
+
+      $responses = $router->batch([
+        [
+          'key' => 'key1',
+          'action' => 'action1'
+        ]
+      ]);
+    }
+
     public function testThatActionUrlIsPrefixedCorrectly()
     {
         $this->configMock['url_prefix'] = '/prefix';
@@ -91,5 +107,5 @@ class OptimusApiConsumerTest extends Orchestra\Testbench\TestCase {
             ]
         ]);
     }
-    
+
 }

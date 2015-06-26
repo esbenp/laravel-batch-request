@@ -30,7 +30,7 @@ class OptimusApiConsumer implements RouterInterface {
     {
         return array_map(function($request){
             return [
-                $request['method'],
+                isset($request['method']) ? $request['method'] : 'GET',
                 $this->createActionUrl($request['action']),
                 isset($request['data']) ? $request['data'] : [],
                 isset($request['headers']) ? $request['headers'] : []
@@ -51,7 +51,7 @@ class OptimusApiConsumer implements RouterInterface {
 
     private function createActionUrl($action)
     {
-        return is_string($this->config['url_prefix']) ? 
+        return is_string($this->config['url_prefix']) ?
                     sprintf('%s%s', $this->config['url_prefix'], $action) : $action;
     }
 
