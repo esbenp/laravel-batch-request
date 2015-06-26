@@ -9,7 +9,7 @@ class OptimusResponseFormatter implements ResponseFormatterInterface {
         return [
             'status' => trans('batchrequest::responses.' . $status . '_status'),
             'message' => trans('batchrequest::responses.' . $status . '_message'),
-            'responses' => array_values(count($errors) > 0 ? $errors : $successes)
+            'responses' => count($errors) > 0 ? $errors : $successes
         ];
     }
 

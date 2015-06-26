@@ -41,7 +41,7 @@ class BatchRequestTest extends Orchestra\Testbench\TestCase {
 
         m::close();
     }
-    
+
     public function testResultsArePreparedCorrectly()
     {
         $batchRequest = new BatchRequest(
@@ -65,10 +65,12 @@ class BatchRequestTest extends Orchestra\Testbench\TestCase {
             $errorResponse
         ]);
 
+        $firstKey = array_keys($results['responses'])[0];
+
         $this->assertEquals('error', $results['status']);
-        $this->assertEquals(500, $results['responses'][0]->statusCode);
-        $this->assertEquals(25, $results['responses'][0]->data->code);
-        $this->assertEquals('Exception', $results['responses'][0]->data->message);
+        $this->assertEquals(500, $results['responses'][$firstKey]->statusCode);
+        $this->assertEquals(25, $results['responses'][$firstKey]->data->code);
+        $this->assertEquals('Exception', $results['responses'][$firstKey]->data->message);
 
         $this->dbMock->shouldReceive('commit')->times(1);
 

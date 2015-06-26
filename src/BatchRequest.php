@@ -28,7 +28,7 @@ class BatchRequest {
         TransactionInterface $databaseManager)
     {
         $this->config = $config;
- 
+
         $this->setRouter($router);
         $this->setDatabaseManager($databaseManager);
         $this->setResultFormatter($resultFormatter);
@@ -36,7 +36,7 @@ class BatchRequest {
     }
 
     /**
-     * Handle an array of actions to be performed. 
+     * Handle an array of actions to be performed.
      * The format:
      * [
      *     {
@@ -47,11 +47,11 @@ class BatchRequest {
      *         headers: [] // key, value array of headers to send with the request
      *     }
      * ]
-     * 
-     * @param  array $actions 
-     * @return void          
+     *
+     * @param  array $actions
+     * @return void
      */
-    public function request(array $actions) 
+    public function request(array $actions)
     {
         // We begin a database transaction, so the we can rollback
         // if there are errors in one or more of the actions.
@@ -68,11 +68,11 @@ class BatchRequest {
      * we just return the given JsonResponse with the proper status code.
      *
      * If an action was a resource (i.e. a GET request) we return the data
-     * If an action was an action (i.e. POST/PUT/DELETE request) we return 
+     * If an action was an action (i.e. POST/PUT/DELETE request) we return
      * a normal API response
      * On PUT requests, we add the etag so it can be used client side.
-     * 
-     * @return array|\Illuminate\Http\Response 
+     *
+     * @return array|\Illuminate\Http\Response
      */
     public function prepareResults($results)
     {
@@ -106,7 +106,7 @@ class BatchRequest {
             );
         }
 
-        // Everything ran smoothely. Commit all database transactions and 
+        // Everything ran smoothely. Commit all database transactions and
         // return all the success responses.
         $this->commitDatabaseTransaction();
 
