@@ -15,7 +15,8 @@ class OptimusApiConsumerTest extends Orchestra\Testbench\TestCase {
 
         $this->routerMock = m::mock("Optimus\ApiConsumer\Router");
         $this->configMock = [
-            'url_prefix' => false
+            'url_prefix' => false,
+            'disable_middleware' => true
         ];
     }
 
@@ -42,6 +43,8 @@ class OptimusApiConsumerTest extends Orchestra\Testbench\TestCase {
             ['data' => [], 'status' => 200],
             ['data' => [], 'status' => 200]
         ]);
+
+        $this->routerMock->shouldReceive('disableMiddleware')->times(1);
 
         $router = new OptimusApiConsumer($this->routerMock, $this->configMock);
 
@@ -72,6 +75,8 @@ class OptimusApiConsumerTest extends Orchestra\Testbench\TestCase {
           ['data' => [], 'status' => 200]
         ]);
 
+      $this->routerMock->shouldReceive('disableMiddleware')->times(1);
+
       $router = new OptimusApiConsumer($this->routerMock, $this->configMock);
 
       $responses = $router->batch([
@@ -95,6 +100,8 @@ class OptimusApiConsumerTest extends Orchestra\Testbench\TestCase {
         )->andReturn([
             ['data' => [], 'status' => 200]
         ]);
+
+        $this->routerMock->shouldReceive('disableMiddleware')->times(1);
 
         $router = new OptimusApiConsumer($this->routerMock, $this->configMock);
 
