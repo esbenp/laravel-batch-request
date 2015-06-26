@@ -17,7 +17,7 @@ class OptimusResultFormatter implements ResultFormatterInterface {
 
         $etag = $response->headers->get("etag");
         if ($etag !== null) {
-            $result->etag = $etag;
+            $result->etag = str_replace('"', '', $etag);
         }
 
         return $result;
