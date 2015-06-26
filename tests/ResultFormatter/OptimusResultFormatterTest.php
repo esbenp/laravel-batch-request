@@ -27,9 +27,7 @@ class OptimusResultFormatterTest extends Orchestra\Testbench\TestCase {
 
         $formatted = $this->formatter->formatResult($response);
 
-        $this->assertEquals('stdClass', get_class($formatted));
-        $this->assertEquals(200, $formatted->statusCode);
-        $this->assertEquals('<html>', $formatted->data);
+        $this->assertNormalResponse($formatted);
     }
 
     public function testJsonResultIsFormattedProperly()
@@ -40,9 +38,38 @@ class OptimusResultFormatterTest extends Orchestra\Testbench\TestCase {
 
         $formatted = $this->formatter->formatResult($response);
 
-        $this->assertEquals('stdClass', get_class($formatted));
-        $this->assertEquals(200, $formatted->statusCode);
-        $this->assertEquals('json', $formatted->data->format);
+        $this->assertJsonResponse($formatted);
+    }
+
+    public function testHandlingNonIlluminateResponseErrorResponses()
+    {
+        $response = JsonResponse::create([
+            'format' => 'json'
+          ], 500);
+
+        $formatted = $this->formatter->formatResult($response);
+
+        $this->assertJsonResponse($formatted, 500);
+
+        $response = Response::create('<html>', 500);
+
+        $formatted = $this->formatter->formatResult($response);
+
+        $this->assertNormalResponse($formatted, 500);
+    }
+
+    private function assertJsonResponse($response, $statusCode = 200)
+    {
+        $this->assertEquals('stdClass', get_class($response));
+        $this->assertEquals($statusCode, $response->statusCode);
+        $this->assertEquals('json', $response->data->format);
+    }
+
+    private function assertNormalResponse($response, $statusCode = 200)
+    {
+        $this->assertEquals('stdClass', get_class($response));
+        $this->assertEquals($statusCode, $response->statusCode);
+        $this->assertEquals('<html>', $response->data);
     }
 
     public function testExceptionResultIsFormattedProperly()
@@ -61,5 +88,5 @@ class OptimusResultFormatterTest extends Orchestra\Testbench\TestCase {
             $this->assertEquals("integer", gettype($formatted->data->line));
         }
     }
-    
+
 }

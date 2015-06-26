@@ -26,11 +26,10 @@ class OptimusResultFormatter implements ResultFormatterInterface {
     private function formatData(Response $response)
     {
         if (!$response->isSuccessful()) {
-            $exception = $response instanceof LaravelResponse ? 
-                            $response->exception : 
-                            /* TODO: */ null;
-
-            return $this->formatException($exception);
+            // Response will have an exception attached
+            if ($response instanceof LaravelResponse && $response->exception instanceof Exception) {
+                return $this->formatException($response->exception);
+            }
         }
 
         $content = $response->getContent();
