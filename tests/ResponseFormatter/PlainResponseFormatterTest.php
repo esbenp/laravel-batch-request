@@ -18,13 +18,12 @@ class PlainResponseFormatterTest extends Orchestra\Testbench\TestCase {
 
     public function testErrorneousResponseIsFormattedCorrectly()
     {
-        $formatted = $this->formatter->formatResponse("success", [
-            "success1"
-        ], [
+        $formatted = $this->formatter->formatResponse(true, [
+            "success1",
             "error1"
         ]);
 
         $this->assertEquals(2, count($formatted));
     }
-    
+
 }

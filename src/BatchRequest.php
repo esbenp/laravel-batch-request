@@ -76,20 +76,17 @@ class BatchRequest {
      */
     public function prepareResults($results)
     {
-        // Array of all error responses
-        $errors = [];
-        // Array of all successfull responses
-        $successes = [];
+        // Array of results
+        $prepared = [];
 
         // Was there an error in the result collection?
         $errorneous = false;
         foreach($results as $key => $response) {
             if (!$response->isSuccessful()) {
                 $errorneous = true;
-                $errors[$key] = $this->generateResult($response);
-            } else {
-                $successes[$key] = $this->generateResult($response);
             }
+
+            $prepared[$key] = $this->generateResult($response);
         }
 
         // The result collection was errorneous. Rollback the database
@@ -98,23 +95,13 @@ class BatchRequest {
             if ($this->config['rollback_db_transactions_on_error']) {
                 $this->rollbackDatabaseTransaction();
             }
-
-            return $this->generateResponse(
-                "error",
-                $successes,
-                $errors
-            );
+        } else {
+          // Everything ran smoothely. Commit all database transactions and
+          // return all the success responses.
+          $this->commitDatabaseTransaction();
         }
 
-        // Everything ran smoothely. Commit all database transactions and
-        // return all the success responses.
-        $this->commitDatabaseTransaction();
-
-        return $this->generateResponse(
-            "success",
-            $successes,
-            $errors
-        );
+        return $this->generateResponse($errorneous, $prepared);
     }
 
     public function setRouter(RouterInterface $router)
@@ -161,9 +148,9 @@ class BatchRequest {
         $this->db->commit();
     }
 
-    private function generateResponse($status, array $successes, array $errors)
+    private function generateResponse($errorneous, array $results)
     {
-        return $this->responseFormatter->formatResponse($status, $successes, $errors);
+        return $this->responseFormatter->formatResponse($errorneous, $results);
     }
 
     private function generateResult(SymfonyResponse $result)

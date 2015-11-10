@@ -4,9 +4,9 @@ namespace Optimus\BatchRequest\ResponseFormatter;
 
 class PlainResponseFormatter implements ResponseFormatterInterface {
 
-    public function formatResponse($status, array $successes, array $errors)
+    public function formatResponse($errorneous, array $responses)
     {
-        return array_merge($errors, $successes);
+        return $responses;
     }
 
 }

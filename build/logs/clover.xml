@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1447166584">
+  <project timestamp="1447166584">
+    <package name="Optimus\BatchRequest">
+      <file name="/home/vagrant/code/laravel-batch-request/src/BatchRequest.php">
+        <class name="BatchRequest" namespace="Optimus\BatchRequest">
+          <metrics methods="12" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="37" elements="52" coveredelements="47"/>
+        </class>
+        <line num="23" type="method" name="__construct" crap="1" count="2"/>
+        <line num="30" type="stmt" count="2"/>
+        <line num="32" type="stmt" count="2"/>
+        <line num="33" type="stmt" count="2"/>
+        <line num="34" type="stmt" count="2"/>
+        <line num="35" type="stmt" count="2"/>
+        <line num="36" type="stmt" count="2"/>
+        <line num="54" type="method" name="request" crap="1" count="1"/>
+        <line num="58" type="stmt" count="1"/>
+        <line num="60" type="stmt" count="1"/>
+        <line num="62" type="stmt" count="1"/>
+        <line num="77" type="method" name="prepareResults" crap="5.01" count="1"/>
+        <line num="80" type="stmt" count="1"/>
+        <line num="83" type="stmt" count="1"/>
+        <line num="84" type="stmt" count="1"/>
+        <line num="85" type="stmt" count="1"/>
+        <line num="86" type="stmt" count="1"/>
+        <line num="87" type="stmt" count="1"/>
+        <line num="89" type="stmt" count="1"/>
+        <line num="90" type="stmt" count="1"/>
+        <line num="94" type="stmt" count="1"/>
+        <line num="95" type="stmt" count="1"/>
+        <line num="96" type="stmt" count="1"/>
+        <line num="97" type="stmt" count="1"/>
+        <line num="98" type="stmt" count="1"/>
+        <line num="101" type="stmt" count="0"/>
+        <line num="104" type="stmt" count="1"/>
+        <line num="107" type="method" name="setRouter" crap="1" count="2"/>
+        <line num="109" type="stmt" count="2"/>
+        <line num="110" type="stmt" count="2"/>
+        <line num="112" type="method" name="setDatabaseManager" crap="1" count="2"/>
+        <line num="114" type="stmt" count="2"/>
+        <line num="115" type="stmt" count="2"/>
+        <line num="117" type="method" name="setResponseFormatter" crap="1" count="2"/>
+        <line num="119" type="stmt" count="2"/>
+        <line num="120" type="stmt" count="2"/>
+        <line num="122" type="method" name="setResultFormatter" crap="1" count="2"/>
+        <line num="124" type="stmt" count="2"/>
+        <line num="125" type="stmt" count="2"/>
+        <line num="130" type="method" name="beginDatabaseTransaction" crap="1" count="1"/>
+        <line num="132" type="stmt" count="1"/>
+        <line num="133" type="stmt" count="1"/>
+        <line num="138" type="method" name="rollbackDatabaseTransaction" crap="1" count="1"/>
+        <line num="140" type="stmt" count="1"/>
+        <line num="141" type="stmt" count="1"/>
+        <line num="146" type="method" name="commitDatabaseTransaction" crap="2" count="0"/>
+        <line num="148" type="stmt" count="0"/>
+        <line num="149" type="stmt" count="0"/>
+        <line num="151" type="method" name="generateResponse" crap="1" count="1"/>
+        <line num="153" type="stmt" count="1"/>
+        <line num="156" type="method" name="generateResult" crap="1" count="1"/>
+        <line num="158" type="stmt" count="1"/>
+        <metrics loc="161" ncloc="108" classes="1" methods="12" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="37" elements="52" coveredelements="47"/>
+      </file>
+    </package>
+    <package name="Optimus\BatchRequest\Controller">
+      <file name="/home/vagrant/code/laravel-batch-request/src/Controller/LaravelController.php">
+        <class name="LaravelController" namespace="Optimus\BatchRequest\Controller">
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="8" coveredelements="8"/>
+        </class>
+        <line num="12" type="method" name="__construct" crap="1" count="1"/>
+        <line num="13" type="stmt" count="1"/>
+        <line num="14" type="stmt" count="1"/>
+        <line num="16" type="method" name="request" crap="1" count="1"/>
+        <line num="18" type="stmt" count="1"/>
+        <line num="19" type="stmt" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <line num="23" type="stmt" count="1"/>
+        <metrics loc="26" ncloc="26" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="8" coveredelements="8"/>
+      </file>
+    </package>
+    <package name="Optimus\BatchRequest\Database\Adapter">
+      <file name="/home/vagrant/code/laravel-batch-request/src/Database/Adapter/Laravel.php">
+        <class name="Laravel" namespace="Optimus\BatchRequest\Database\Adapter">
+          <metrics methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="9" coveredelements="9"/>
+        </class>
+        <line num="12" type="method" name="__construct" crap="1" count="1"/>
+        <line num="13" type="stmt" count="1"/>
+        <line num="14" type="stmt" count="1"/>
+        <line num="16" type="method" name="beginTransaction" crap="1" count="1"/>
+        <line num="18" type="stmt" count="1"/>
+        <line num="21" type="method" name="rollback" crap="1" count="1"/>
+        <line num="23" type="stmt" count="1"/>
+        <line num="26" type="method" name="commit" crap="1" count="1"/>
+        <line num="28" type="stmt" count="1"/>
+        <metrics loc="30" ncloc="30" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="9" coveredelements="9"/>
+      </file>
+      <file name="/home/vagrant/code/laravel-batch-request/src/Database/Adapter/Null.php">
+        <class name="Null" namespace="Optimus\BatchRequest\Database\Adapter">
+          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+        </class>
+        <line num="9" type="method" name="beginTransaction" crap="1" count="1"/>
+        <line num="11" type="stmt" count="1"/>
+        <line num="14" type="method" name="rollback" crap="1" count="1"/>
+        <line num="16" type="stmt" count="1"/>
+        <line num="19" type="method" name="commit" crap="1" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <metrics loc="23" ncloc="23" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+      </file>
+    </package>
+    <file name="/home/vagrant/code/laravel-batch-request/src/Database/TransactionInterface.php">
+      <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <package name="Optimus\BatchRequest\Facade">
+      <file name="/home/vagrant/code/laravel-batch-request/src/Facade/BatchRequest.php">
+        <class name="BatchRequest" namespace="Optimus\BatchRequest\Facade">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+        </class>
+        <line num="15" type="method" name="getFacadeAccessor" crap="1" count="1"/>
+        <line num="17" type="stmt" count="1"/>
+        <metrics loc="19" ncloc="13" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </file>
+    </package>
+    <package name="Optimus\BatchRequest\Provider">
+      <file name="/home/vagrant/code/laravel-batch-request/src/Provider/LaravelServiceProvider.php">
+        <class name="LaravelServiceProvider" namespace="Optimus\BatchRequest\Provider">
+          <metrics methods="8" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="17" elements="45" coveredelements="22"/>
+        </class>
+        <line num="18" type="method" name="register" crap="1" count="9"/>
+        <line num="20" type="stmt" count="9"/>
+        <line num="21" type="stmt" count="9"/>
+        <line num="22" type="stmt" count="9"/>
+        <line num="23" type="stmt" count="9"/>
+        <line num="27" type="method" name="anonymous function" crap="1.82" count="9"/>
+        <line num="28" type="stmt" count="0"/>
+        <line num="29" type="stmt" count="0"/>
+        <line num="30" type="stmt" count="0"/>
+        <line num="31" type="stmt" count="0"/>
+        <line num="33" type="stmt" count="0"/>
+        <line num="34" type="stmt" count="0"/>
+        <line num="36" type="stmt" count="0"/>
+        <line num="37" type="stmt" count="0"/>
+        <line num="39" type="stmt" count="0"/>
+        <line num="40" type="stmt" count="0"/>
+        <line num="41" type="stmt" count="0"/>
+        <line num="42" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="45" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="9"/>
+        <line num="49" type="stmt" count="9"/>
+        <line num="51" type="method" name="createRouterAdapter" crap="2" count="0"/>
+        <line num="53" type="stmt" count="0"/>
+        <line num="54" type="stmt" count="0"/>
+        <line num="56" type="stmt" count="0"/>
+        <line num="59" type="method" name="createDatabaseAdapter" crap="6" count="0"/>
+        <line num="61" type="stmt" count="0"/>
+        <line num="62" type="stmt" count="0"/>
+        <line num="65" type="method" name="boot" crap="1" count="8"/>
+        <line num="67" type="stmt" count="8"/>
+        <line num="68" type="stmt" count="8"/>
+        <line num="70" type="method" name="registerAssets" crap="1" count="9"/>
+        <line num="72" type="stmt" count="9"/>
+        <line num="73" type="stmt" count="9"/>
+        <line num="74" type="stmt" count="9"/>
+        <line num="75" type="stmt" count="9"/>
+        <line num="77" type="method" name="loadConfig" crap="2" count="9"/>
+        <line num="79" type="stmt" count="9"/>
+        <line num="80" type="stmt" count="8"/>
+        <line num="81" type="stmt" count="8"/>
+        <line num="82" type="stmt" count="9"/>
+        <line num="84" type="method" name="loadLangFile" crap="1" count="8"/>
+        <line num="86" type="stmt" count="8"/>
+        <line num="87" type="stmt" count="8"/>
+        <metrics loc="88" ncloc="88" classes="1" methods="8" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="38" coveredstatements="18" elements="46" coveredelements="23"/>
+      </file>
+    </package>
+    <package name="Optimus\BatchRequest\ResponseFormatter">
+      <file name="/home/vagrant/code/laravel-batch-request/src/ResponseFormatter/OptimusResponseFormatter.php">
+        <class name="OptimusResponseFormatter" namespace="Optimus\BatchRequest\ResponseFormatter">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="8" type="method" name="formatResponse" crap="2" count="3"/>
+        <line num="11" type="stmt" count="3"/>
+        <line num="13" type="stmt" count="3"/>
+        <metrics loc="15" ncloc="15" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+      <file name="/home/vagrant/code/laravel-batch-request/src/ResponseFormatter/PlainResponseFormatter.php">
+        <class name="PlainResponseFormatter" namespace="Optimus\BatchRequest\ResponseFormatter">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+        </class>
+        <line num="7" type="method" name="formatResponse" crap="1" count="1"/>
+        <line num="9" type="stmt" count="1"/>
+        <metrics loc="12" ncloc="12" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </file>
+    </package>
+    <file name="/home/vagrant/code/laravel-batch-request/src/ResponseFormatter/ResponseFormatterInterface.php">
+      <metrics loc="9" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <package name="Optimus\BatchRequest\ResultFormatter">
+      <file name="/home/vagrant/code/laravel-batch-request/src/ResultFormatter/OptimusResultFormatter.php">
+        <class name="OptimusResultFormatter" namespace="Optimus\BatchRequest\ResultFormatter">
+          <metrics methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="18" elements="23" coveredelements="20"/>
+        </class>
+        <line num="12" type="method" name="formatResult" crap="2.06" count="5"/>
+        <line num="13" type="stmt" count="5"/>
+        <line num="15" type="stmt" count="5"/>
+        <line num="16" type="stmt" count="5"/>
+        <line num="18" type="stmt" count="5"/>
+        <line num="19" type="stmt" count="5"/>
+        <line num="20" type="stmt" count="0"/>
+        <line num="21" type="stmt" count="0"/>
+        <line num="23" type="stmt" count="5"/>
+        <line num="26" type="method" name="formatData" crap="5" count="5"/>
+        <line num="28" type="stmt" count="5"/>
+        <line num="30" type="stmt" count="3"/>
+        <line num="31" type="stmt" count="2"/>
+        <line num="33" type="stmt" count="1"/>
+        <line num="35" type="stmt" count="4"/>
+        <line num="37" type="stmt" count="4"/>
+        <line num="40" type="method" name="formatException" crap="1" count="2"/>
+        <line num="43" type="stmt" count="2"/>
+        <line num="44" type="stmt" count="2"/>
+        <line num="45" type="stmt" count="2"/>
+        <line num="46" type="stmt" count="2"/>
+        <line num="47" type="stmt" count="2"/>
+        <line num="48" type="stmt" count="2"/>
+        <metrics loc="51" ncloc="49" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="18" elements="23" coveredelements="20"/>
+      </file>
+      <file name="/home/vagrant/code/laravel-batch-request/src/ResultFormatter/PlainResultFormatter.php">
+        <class name="PlainResultFormatter" namespace="Optimus\BatchRequest\ResultFormatter">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="10" type="method" name="formatResult" crap="2" count="2"/>
+        <line num="11" type="stmt" count="2"/>
+        <line num="13" type="stmt" count="2"/>
+        <metrics loc="15" ncloc="15" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+    </package>
+    <file name="/home/vagrant/code/laravel-batch-request/src/ResultFormatter/ResultFormatterInterface.php">
+      <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <package name="Optimus\BatchRequest\Router\Adapter">
+      <file name="/home/vagrant/code/laravel-batch-request/src/Router/Adapter/OptimusApiConsumer.php">
+        <class name="OptimusApiConsumer" namespace="Optimus\BatchRequest\Router\Adapter">
+          <metrics methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="22" elements="27" coveredelements="27"/>
+        </class>
+        <line num="14" type="method" name="__construct" crap="1" count="3"/>
+        <line num="16" type="stmt" count="3"/>
+        <line num="17" type="stmt" count="3"/>
+        <line num="18" type="stmt" count="3"/>
+        <line num="20" type="method" name="batch" crap="2" count="3"/>
+        <line num="22" type="stmt" count="3"/>
+        <line num="24" type="stmt" count="3"/>
+        <line num="25" type="stmt" count="3"/>
+        <line num="26" type="stmt" count="3"/>
+        <line num="28" type="stmt" count="3"/>
+        <line num="30" type="stmt" count="3"/>
+        <line num="35" type="method" name="anonymous function" crap="4" count="3"/>
+        <line num="37" type="stmt" count="3"/>
+        <line num="38" type="stmt" count="3"/>
+        <line num="39" type="stmt" count="3"/>
+        <line num="40" type="stmt" count="3"/>
+        <line num="41" type="stmt" count="3"/>
+        <line num="42" type="stmt" count="3"/>
+        <line num="45" type="method" name="getKeyOrder" crap="2" count="3"/>
+        <line num="47" type="stmt" count="3"/>
+        <line num="49" type="stmt" count="3"/>
+        <line num="50" type="stmt" count="3"/>
+        <line num="51" type="stmt" count="3"/>
+        <line num="53" type="stmt" count="3"/>
+        <line num="56" type="method" name="createActionUrl" crap="2" count="3"/>
+        <line num="58" type="stmt" count="3"/>
+        <line num="59" type="stmt" count="3"/>
+        <metrics loc="62" ncloc="62" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="22" elements="27" coveredelements="27"/>
+      </file>
+    </package>
+    <file name="/home/vagrant/code/laravel-batch-request/src/Router/RouterInterface.php">
+      <metrics loc="8" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/home/vagrant/code/laravel-batch-request/src/config/batchrequest.php">
+      <line num="9" type="stmt" count="8"/>
+      <line num="23" type="stmt" count="8"/>
+      <line num="28" type="stmt" count="8"/>
+      <line num="33" type="stmt" count="8"/>
+      <line num="35" type="stmt" count="8"/>
+      <line num="42" type="stmt" count="8"/>
+      <line num="49" type="stmt" count="8"/>
+      <metrics loc="49" ncloc="19" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="7" coveredelements="7"/>
+    </file>
+    <file name="/home/vagrant/code/laravel-batch-request/src/lang/en/responses.php">
+      <line num="5" type="stmt" count="2"/>
+      <line num="6" type="stmt" count="2"/>
+      <line num="8" type="stmt" count="2"/>
+      <line num="9" type="stmt" count="2"/>
+      <line num="11" type="stmt" count="2"/>
+      <line num="12" type="stmt" count="2"/>
+      <line num="13" type="stmt" count="2"/>
+      <line num="14" type="stmt" count="2"/>
+      <line num="15" type="stmt" count="2"/>
+      <line num="18" type="stmt" count="2"/>
+      <metrics loc="17" ncloc="17" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="9" coveredelements="9"/>
+    </file>
+    <metrics files="17" loc="607" ncloc="516" classes="11" methods="41" coveredmethods="35" conditionals="0" coveredconditionals="0" statements="156" coveredstatements="131" elements="197" coveredelements="166"/>
+  </project>
+</coverage>

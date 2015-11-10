@@ -4,6 +4,6 @@ namespace Optimus\BatchRequest\ResponseFormatter;
 
 interface ResponseFormatterInterface {
 
-    public function formatResponse($status, array $successes, array $errors);
+    public function formatResponse($errorneous, array $responses);
 
 }
