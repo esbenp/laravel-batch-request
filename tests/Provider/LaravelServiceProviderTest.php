@@ -27,7 +27,7 @@ class LaravelServiceProviderTest extends Orchestra\Testbench\TestCase {
 
     public function testBindInstanceCallsContainer()
     {
-        $this->appMock->shouldReceive('bindShared')->with(
+        $this->appMock->shouldReceive('singleton')->with(
             'batchrequest',
             m::type('Closure')
         );
