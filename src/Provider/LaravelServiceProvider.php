@@ -24,7 +24,7 @@ class LaravelServiceProvider extends BaseProvider {
 
     public function bindInstance()
     {
-        $this->app->bindShared('batchrequest', function(){
+        $this->app->singleton('batchrequest', function(){
             $config = $this->app['config']->get('batchrequest');
             $database = $this->app['db'];
             $request = $this->app['request'];
