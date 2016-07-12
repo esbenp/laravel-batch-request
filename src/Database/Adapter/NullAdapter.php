@@ -4,7 +4,7 @@ namespace Optimus\BatchRequest\Database\Adapter;
 
 use Optimus\BatchRequest\Database\TransactionInterface;
 
-class Null implements TransactionInterface {
+class NullAdapter implements TransactionInterface {
 
     public function beginTransaction()
     {

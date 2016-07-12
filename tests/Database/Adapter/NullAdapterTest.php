@@ -1,12 +1,12 @@
 <?php
 
-use Optimus\BatchRequest\Database\Adapter\Null;
+use Optimus\BatchRequest\Database\Adapter\NullAdapter;
 
-class NullTest extends Orchestra\Testbench\TestCase {
+class NullAdapterTest extends Orchestra\Testbench\TestCase {
 
     public function testNullIsReturned()
     {
-        $database = new Null();
+        $database = new NullAdapter();
 
         $this->assertNull($database->beginTransaction());
         $this->assertNull($database->rollback());

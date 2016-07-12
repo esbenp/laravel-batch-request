@@ -5,7 +5,7 @@ namespace Optimus\BatchRequest\Database\Adapter;
 use Optimus\BatchRequest\Database\TransactionInterface;
 use Illuminate\Database\DatabaseManager;
 
-class Laravel implements TransactionInterface {
+class LaravelAdapter implements TransactionInterface {
 
     private $db;
 

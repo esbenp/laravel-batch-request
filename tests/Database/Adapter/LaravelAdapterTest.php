@@ -1,14 +1,14 @@
 <?php
 
 use Mockery as m;
-use Optimus\BatchRequest\Database\Adapter\Laravel;
+use Optimus\BatchRequest\Database\Adapter\LaravelAdapter;
 
-class LaravelTest extends Orchestra\Testbench\TestCase {
+class LaravelAdapterTest extends Orchestra\Testbench\TestCase {
 
     public function testUnderlyingMethodsAreCalled()
     {
         $mock = m::mock('Illuminate\Database\DatabaseManager');
-        $database = new Laravel($mock);
+        $database = new LaravelAdapter($mock);
 
         $mock->shouldReceive('beginTransaction')->times(1);
 

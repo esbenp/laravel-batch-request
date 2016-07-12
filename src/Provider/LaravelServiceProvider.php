@@ -9,8 +9,8 @@ use Illuminate\Routing\Router as LaravelRouter;
 use Illuminate\Support\ServiceProvider as BaseProvider;
 use Optimus\ApiConsumer\Router as OptimusApiConsumerRouter;
 use Optimus\BatchRequest\BatchRequest;
-use Optimus\BatchRequest\Database\Adapter\Laravel as LaravelDatabase;
-use Optimus\BatchRequest\Database\Adapter\Null as NullDatabase;
+use Optimus\BatchRequest\Database\Adapter\LaravelAdapter as LaravelDatabase;
+use Optimus\BatchRequest\Database\Adapter\NullAdapter as NullDatabase;
 use Optimus\BatchRequest\Router\Adapter\OptimusApiConsumer as OptimusApiConsumerRouterAdapter;
 
 class LaravelServiceProvider extends BaseProvider {
